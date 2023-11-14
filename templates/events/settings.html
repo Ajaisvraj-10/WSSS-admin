@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    .page-wrapper {
+        margin-left: 140px;
+    }
+    .btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    position: absolute;
+    right: 50px;
+    top: 55px;
+    }
+    .fix-header .page-wrapper {
+    padding-top: 35px;
+    }   
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container-fluid">
+
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">Banner/Footer</h3>
+                </div>
+            </div>
+            <!-- <a href="{% url 'add_event' %}" class="btn btn-success">Add Event</a> -->
+            <div class="row"> 
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Banner List</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Title</th>
+                                            <th>Address</th>
+                                            <th>Discription</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for banner_footer in banner_footer %}
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                <td>{{ banner_footer.title }}</td>
+                                                <td>{{ banner_footer.address }}</td>
+                                                <td>{{ banner_footer.description }}</td>
+                                                <td>
+                                                    {% if banner_footer.banner_image %}
+                                                        <img src="{{ banner_footer.banner_image.url }}" alt="{{ banner_footer.title }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                                    {% else %}
+                                                        No image available
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+
+                                                    delete
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

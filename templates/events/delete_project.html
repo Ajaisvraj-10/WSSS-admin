@@ -1,0 +1,14 @@
+<!-- events/templates/events/delete_project.html -->
+<!-- {% extends 'base_admin.html' %}
+
+{% block title %}Delete Project{% endblock %}
+
+{% block content %} -->
+  <h2>Delete Project</h2>
+  <p>Are you sure you want to delete the project "{{ project.title }}"?</p>
+  <form method="post" action="{% url 'project_delete' pk=project.pk %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+  <a href="{% url 'index' %}">Cancel</a>
+<!-- {% endblock %} -->
