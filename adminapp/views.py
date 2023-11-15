@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login ,logout
 from rest_framework import viewsets
 from .serializers import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 def login_view(request):
@@ -37,22 +39,106 @@ def index(request):
 
 def story_list(request):
     stories = Story.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(stories, 5) 
+
+    try:
+        stories = paginator.page(page)
+    except PageNotAnInteger:
+        stories = paginator.page(1)
+    except EmptyPage:
+        stories = paginator.page(paginator.num_pages)
     return render(request, 'events/story_list.html', {'stories': stories})
 
 def project_list(request):
     projects = Project.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(projects, 5) 
+
+    try:
+        projects = paginator.page(page)
+    except PageNotAnInteger:
+        projects = paginator.page(1)
+    except EmptyPage:
+        projects = paginator.page(paginator.num_pages)
     return render(request, 'events/project_list.html', {'projects': projects})
 
 def event_list(request):
     events = Event.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(events, 5) 
+
+    try:
+        events = paginator.page(page)
+    except PageNotAnInteger:
+        events = paginator.page(1)
+    except EmptyPage:
+        events = paginator.page(paginator.num_pages)
     return render(request, 'events/event_list.html', {'events': events})
 
 def story_table(request):
     return render(request,'table-basic.html')
 
 def banner_footer_list(request):
-    banner_footer = Banner.objects.all()
-    return render(request,'events/settings.html', {'banner_footer':banner_footer})
+    banners = Banner.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(banners, 5) 
+
+    try:
+        banners = paginator.page(page)
+    except PageNotAnInteger:
+        banners = paginator.page(1)
+    except EmptyPage:
+        banners = paginator.page(paginator.num_pages)
+    return render(request,'events/settings.html', {'banners':banners})
+
+
+
+
+# banner/footer-view
+
+def banner_add(request):
+    if request.method == 'POST':
+        banner_image = request.FILES.get('banner_image')
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        address = request.POST.get('address')
+        Banner.objects.create(
+            banner_image=banner_image,
+            title=title,
+            description=description,
+            address=address
+        )
+        return redirect('index')
+    return render(request,'events/add_settings.html')
+
+
+def banner_delete(request,pk):
+    banner = get_object_or_404(Banner, pk=pk)
+    
+    if request.method == 'POST':
+        banner.delete()
+        return redirect('index')
+    return render(request,'events/delete_banner.html',{'banner':banner})
+
+
+def banner_edit(request,pk):
+    banner = get_object_or_404(Banner, pk=pk)
+    
+    if request.method == 'POST':
+        banner_image = request.FILES.get('banner_image')
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        address = request.POST.get('address')
+        
+        banner.banner_image = banner_image
+        banner.title = title
+        banner.description = description
+        banner.address = address
+        banner.save()
+        return redirect('index')
+    return render(request, 'events/edit_banner.html',{'banner':banner})
+
 
 
 # story-view
@@ -201,3 +287,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+
+class BannerViewSet(viewsets.ModelViewSet):
+    queryset = Banner.objects.all()
+    serializer_class = BannerSerializer

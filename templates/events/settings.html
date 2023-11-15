@@ -24,6 +24,91 @@
     .fix-header .page-wrapper {
     padding-top: 35px;
     }   
+    @media screen and (min-width: 768px) {
+.custom-pagination {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button {
+padding: 5px 10px;
+margin: 0 5px;
+cursor: pointer;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-button:hover {
+background-color: #0056b3;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+}
+
+
+@media screen and (min-width: 768px) {
+.pagination-list {
+list-style: none;
+display: flex;
+margin: 0;
+padding: 0;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-list li {
+margin: 0;
+padding: 0;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-list li.active button {
+background-color: #040a2e !important;
+}
+}
+
+
+/*  */
+@media screen and (min-width: 768px) {
+.pagination-button {
+background-color: #007BFF;
+color: #fff;
+padding: 5px 15px;
+border: none;
+cursor: pointer;
+margin-bottom: 30px;
+}
+.pagination-button.active{
+    background-color: #020d19;
+    color: #fff;
+    border: 2px solid #007bff;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button:disabled {
+background-color: #ccc; 
+color: #888;
+cursor: not-allowed;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button:hover {
+background-color: #0056b3;
+}
+}
     </style>
 </head>
 <body>
@@ -35,7 +120,7 @@
                     <h3 class="text-themecolor">Banner/Footer</h3>
                 </div>
             </div>
-            <!-- <a href="{% url 'add_event' %}" class="btn btn-success">Add Event</a> -->
+            <a href="{% url 'add_banner' %}" class="btn btn-success">Add Banner</a>
             <div class="row"> 
                 <div class="col-lg-12">
                     <div class="card">
@@ -54,27 +139,47 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for banner_footer in banner_footer %}
+                                        {% for banner in banners %}
                                             <tr>
                                                 <th scope="row">{{ forloop.counter }}</th>
-                                                <td>{{ banner_footer.title }}</td>
-                                                <td>{{ banner_footer.address }}</td>
-                                                <td>{{ banner_footer.description }}</td>
+                                                <td>{{ banner.title }}</td>
+                                                <td>{{ banner.address }}</td>
+                                                <td>{{ banner.description }}</td>
                                                 <td>
-                                                    {% if banner_footer.banner_image %}
-                                                        <img src="{{ banner_footer.banner_image.url }}" alt="{{ banner_footer.title }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                                    {% if banner.banner_image %}
+                                                        <img src="{{ banner.banner_image.url }}" alt="{{ banner.title }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                                                     {% else %}
                                                         No image available
                                                     {% endif %}
                                                 </td>
                                                 <td>
-
-                                                    delete
+                                                    <a href="{% url 'banner_edit' pk=banner.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                                                    <form method="post" action="{% url 'banner_delete' pk=banner.pk %}" style="display: inline;">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if banners.has_previous %}
+                                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                                            <a href="?page={{ banners.previous_page_number }}" class="btn btn-primary btn-sm">previous</a>
+                                        {% endif %}
+                                
+                                        <span class="current">
+                                            Page {{ banners.number }} of {{ banners.paginator.num_pages }}.
+                                        </span>
+                                
+                                        {% if banners.has_next %}
+                                            <a href="?page={{ banners.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                                            <a href="?page={{ banners.paginator.num_pages }}" class="btn btn-primary btn-sm">last &raquo;</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

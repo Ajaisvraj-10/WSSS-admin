@@ -23,6 +23,91 @@
         }
         .fix-header .page-wrapper {
         padding-top: 35px;
+        }
+        @media screen and (min-width: 768px) {
+.custom-pagination {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button {
+padding: 5px 10px;
+margin: 0 5px;
+cursor: pointer;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-button:hover {
+background-color: #0056b3;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+}
+
+
+@media screen and (min-width: 768px) {
+.pagination-list {
+list-style: none;
+display: flex;
+margin: 0;
+padding: 0;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-list li {
+margin: 0;
+padding: 0;
+}
+}
+
+@media screen and (min-width: 768px) {
+.pagination-list li.active button {
+background-color: #040a2e !important;
+}
+}
+
+
+/*  */
+@media screen and (min-width: 768px) {
+.pagination-button {
+background-color: #007BFF;
+color: #fff;
+padding: 5px 15px;
+border: none;
+cursor: pointer;
+margin-bottom: 30px;
+}
+.pagination-button.active{
+    background-color: #020d19;
+    color: #fff;
+    border: 2px solid #007bff;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button:disabled {
+background-color: #ccc; 
+color: #888;
+cursor: not-allowed;
+}
+}
+@media screen and (min-width: 768px) {
+.pagination-button:hover {
+background-color: #0056b3;
+}
 }
     </style>
 </head>
@@ -78,6 +163,23 @@
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                                <div class="pagination">
+                                    <span class="step-links">
+                                        {% if stories.has_previous %}
+                                            <a href="?page=1" class="btn btn-primary btn-sm">&laquo; first</a>
+                                            <a href="?page={{ stories.previous_page_number }}" class="btn btn-primary btn-sm">previous</a>
+                                        {% endif %}
+                                
+                                        <span class="current">
+                                            Page {{ stories.number }} of {{ stories.paginator.num_pages }}.
+                                        </span>
+                                
+                                        {% if stories.has_next %}
+                                            <a href="?page={{ stories.next_page_number }}" class="btn btn-primary btn-sm">next</a>
+                                            <a href="?page={{ stories.paginator.num_pages }}" class="btn btn-primary btn-sm">last &raquo;</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -96,6 +198,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 

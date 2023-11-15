@@ -7,11 +7,12 @@ router = DefaultRouter()
 router.register(r'story',StoryViewSet)
 router.register(r'project',ProjectViewSet)
 router.register(r'event',EventViewSet)
+router.register(r'banner',BannerViewSet)
 
 
 
 urlpatterns = [
-        path('api/admin', include(router.urls)),
+    path('api/admin', include(router.urls)),
 
     path('stories/', story_list, name='story_list'),
     path('story/add/', story_add, name='add_story'),
@@ -31,9 +32,15 @@ urlpatterns = [
     path('event/<int:pk>/delete/', event_delete, name='event_delete'),
     path('event/<int:pk>/edit/',event_edit, name='event_edit'),
     
+    
+    path('settings/', banner_footer_list, name='banner_footer_list'),    
+    path('settings/add/', banner_add, name='add_banner'),    
+    path('settings/<int:pk>/delete/', banner_delete, name='banner_delete'),
+    path('settings/<int:pk>/edit/', banner_edit, name='banner_edit'),
+
+    
     path('', index, name='index'),
     path('login/', login_view, name='admin_login'),     
     path('logout/', logout_view, name='admin_logout'),
-    path('setting/', banner_footer_list, name='banner_footer_list'),
 
 ]
