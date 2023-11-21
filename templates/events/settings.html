@@ -5,26 +5,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Event List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-    .page-wrapper {
-        margin-left: 140px;
-    }
-    .btn-success {
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
-    position: absolute;
-    right: 50px;
-    top: 55px;
-    }
-    .fix-header .page-wrapper {
-    padding-top: 35px;
-    }   
-    @media screen and (min-width: 768px) {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Event List</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+.page-wrapper {
+margin-left: 140px;
+}
+.btn-success {
+color: #fff;
+background-color: #28a745;
+border-color: #28a745;
+position: absolute;
+right: 50px;
+top: 55px;
+}
+
+.fix-header .page-wrapper {
+padding-top: 35px;
+}   
+
+@media screen and (min-width: 768px) {
 .custom-pagination {
 display: flex;
 justify-content: center;
@@ -32,6 +34,7 @@ align-items: center;
 margin-top: 20px;
 }
 }
+
 @media screen and (min-width: 768px) {
 .pagination-button {
 padding: 5px 10px;
@@ -57,7 +60,6 @@ cursor: not-allowed;
 }
 }
 
-
 @media screen and (min-width: 768px) {
 .pagination-list {
 list-style: none;
@@ -66,14 +68,12 @@ margin: 0;
 padding: 0;
 }
 }
-
 @media screen and (min-width: 768px) {
 .pagination-list li {
 margin: 0;
 padding: 0;
 }
 }
-
 @media screen and (min-width: 768px) {
 .pagination-list li.active button {
 background-color: #040a2e !important;
@@ -92,9 +92,9 @@ cursor: pointer;
 margin-bottom: 30px;
 }
 .pagination-button.active{
-    background-color: #020d19;
-    color: #fff;
-    border: 2px solid #007bff;
+background-color: #020d19;
+color: #fff;
+border: 2px solid #007bff;
 }
 }
 @media screen and (min-width: 768px) {
@@ -109,7 +109,7 @@ cursor: not-allowed;
 background-color: #0056b3;
 }
 }
-    </style>
+</style>
 </head>
 <body>
     <div class="page-wrapper">
@@ -120,7 +120,6 @@ background-color: #0056b3;
                     <h3 class="text-themecolor">Banner/Footer</h3>
                 </div>
             </div>
-            <a href="{% url 'add_banner' %}" class="btn btn-success">Add Banner</a>
             <div class="row"> 
                 <div class="col-lg-12">
                     <div class="card">

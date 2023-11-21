@@ -23,6 +23,7 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     
+    
 class Banner(models.Model):
     banner_image = models.ImageField(upload_to='banner_photos/')
     title = models.CharField(max_length=100)

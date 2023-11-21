@@ -16,6 +16,10 @@
         <h1>Edit Event</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+             <!-- <div class="form-group">
+                <label for="photo">Current Photo:</label>
+                <img src="{{ event.photo.url }}" alt="Current Photo" width="100">
+            </div> -->
             <div class="form-group">
                 <label for="photo">Photo:</label>
                 <input type="file" class="form-control-file" name="photo" id="photo" accept="image/*" value="{{ event.photo }}">
