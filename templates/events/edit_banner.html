@@ -16,14 +16,16 @@
         <h1>Edit Banner</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="current_banner_image">Current Banner Image:</label>
-                <img src="{{ banner.banner_image.url }}" alt="Current Banner Image" width="100">
+            <div class="form-group" id="currentImageContainer">
+                {% if banner.banner_image %}
+                    <label>Current Image:</label>
+                    <img src="{{ banner.banner_image.url }}" alt="Current Banner Image" style="max-width: 300px;">
+                {% endif %}
             </div>
             
             <div class="form-group">
-                <label for="new_banner_image">New Banner Image:</label>
-                <input type="file" class="form-control-file" name="new_banner_image" id="new_banner_image" accept="image/*">
+                <label for="banner_image"> Banner Image:</label>
+                <input type="file" class="form-control-file" name="banner_image" id="banner_image" accept="image/*">
             </div>
             
             <div class="form-group">

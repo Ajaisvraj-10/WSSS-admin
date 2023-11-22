@@ -15,10 +15,13 @@
         <h1>Edit Project</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="photo">Current Photo:</label>
-                <img src="{{ project.photo.url }}" alt="Current Photo" width="100">
+            <div class="form-group" id="currentImageContainer">
+                {% if project.photo %}
+                    <label>Current Image:</label>
+                    <img src="{{ project.photo.url }}" alt="Current Project Image" style="max-width: 300px;">
+                {% endif %}
             </div>
+
             <div class="form-group">
                 <label for="photo">Photo:</label>
                 <input type="file" class="form-control-file" name="photo" id="photo" accept="image/*" value="{{ project.photo }}">
@@ -27,9 +30,15 @@
                 <label for="title">Title:</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ project.title }}">
             </div>
+            <div class="form-group" id="currentDateContainer">
+                {% if project.date %}
+                    <label>Current Date:</label>
+                    <input type="text" class="form-control" value="{{ project.date|date:'Y-m-d' }}" readonly>
+                    {% endif %}
+            </div>
             <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="text" class="form-control" name="date" id="date" value="{{ project.date }}"  title="Enter a date in the format YYYY-MM-DD" required>
+                <label for="date">New Date:</label>
+                <input type="date" class="form-control" name="date" id="date" value="{{ project.date|date:'Y-m-d' }}" title="Enter a date in the format YYYY-MM-DD">
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
@@ -40,6 +49,27 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get elements
+            const currentDateContainer = document.getElementById('currentDateContainer');
+            const editDateContainer = document.getElementById('editDateContainer');
+            const toggleDateInput = document.getElementById('toggleDateInput');
+            const dateInput = document.getElementById('date');
+
+            // Initial state
+            currentDateContainer.style.display = project.date ? 'block' : 'none';
+            editDateContainer.style.display = project.date ? 'none' : 'block';
+
+            // Toggle date input visibility
+            toggleDateInput.addEventListener('click', function () {
+                currentDateContainer.style.display = 'none';
+                editDateContainer.style.display = 'block';
+                dateInput.focus();
+            });
+        });
+    </script>
 </body>
 </html>
 

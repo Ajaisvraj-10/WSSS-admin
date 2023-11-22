@@ -122,7 +122,7 @@ def banner_delete(request,pk):
     return render(request,'events/delete_banner.html',{'banner':banner})
 
 
-def banner_edit(request,pk):
+def banner_edit(request, pk):
     banner = get_object_or_404(Banner, pk=pk)
     
     if request.method == 'POST':
@@ -131,13 +131,15 @@ def banner_edit(request,pk):
         description = request.POST.get('description')
         address = request.POST.get('address')
         
-        banner.banner_image = banner_image
+        if banner_image:
+            banner.banner_image = banner_image
         banner.title = title
         banner.description = description
         banner.address = address
         banner.save()
         return redirect('index')
-    return render(request, 'events/edit_banner.html',{'banner':banner})
+    
+    return render(request, 'events/edit_banner.html', {'banner': banner})
 
 
 
@@ -173,12 +175,12 @@ def story_edit(request, pk):
         photo = request.FILES.get('photo')
         title = request.POST.get('title')
         date = request.POST.get('date')
-
-        story.photo = photo
+        
+        if photo:
+            story.photo = photo
         story.title = title
         story.date = date
         story.save()
-
         return redirect('index')
 
     return render(request, 'events/edit_story.html', {'story': story})
@@ -217,8 +219,9 @@ def project_edit(request, pk):
         photo = request.FILES.get('photo')
         title = request.POST.get('title')
         date = request.POST.get('date')
-
-        project.photo = photo
+        
+        if photo:
+            project.photo = photo
         project.title = title
         project.date = date
         project.save()
@@ -260,8 +263,9 @@ def event_edit(request, pk):
         photo = request.FILES.get('photo')
         title = request.POST.get('title')
         description = request.POST.get('description')
-
-        event.photo = photo
+        
+        if photo:
+            event.photo = photo
         event.title = title
         event.description = description
         event.save()
