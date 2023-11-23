@@ -133,6 +133,7 @@ background-color: #0056b3;
                                             <th>No</th>
                                             <th>Title</th>
                                             <th>Discription</th>
+                                            <th>Long-Discription</th>
                                             <th>Image</th>
                                             <th>Actions</th>
                                         </tr>
@@ -143,6 +144,7 @@ background-color: #0056b3;
                                                 <th scope="row">{{ forloop.counter }}</th>
                                                 <td>{{ event.title }}</td>
                                                 <td>{{ event.description }}</td>
+                                                <td>{{ event.long_description }}</td>
                                                 <td>
                                                     {% if event.photo %}
                                                         <img src="{{ event.photo.url }}" alt="{{ event.title }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">

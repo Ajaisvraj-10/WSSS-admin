@@ -20,6 +20,7 @@ class Event(models.Model):
     photo = models.ImageField(upload_to='event_photos/')
     title = models.CharField(max_length=100)
     description = models.TextField()
+    long_description = models.TextField(default='Your default long description here')
     created_at = models.DateTimeField(auto_now_add=True)
     
     

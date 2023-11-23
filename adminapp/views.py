@@ -237,10 +237,12 @@ def event_add(request):
         photo = request.FILES.get('photo')
         title = request.POST.get('title')
         description = request.POST.get('description')
+        long_description = request.POST.get('long_description')
         Event.objects.create(
             photo=photo, 
             title=title, 
-            description=description
+            description=description,
+            long_description=long_description
         )
         return redirect('index')
     return render(request,'events/add_event.html')
@@ -263,11 +265,13 @@ def event_edit(request, pk):
         photo = request.FILES.get('photo')
         title = request.POST.get('title')
         description = request.POST.get('description')
+        long_description = request.POST.get('long_description')
         
         if photo:
             event.photo = photo
         event.title = title
         event.description = description
+        event.long_description=long_description
         event.save()
         return redirect('index')
 
